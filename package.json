@@ -1,0 +1,11 @@
+{
+  "name": "ip-registration-portal",
+  "version": "1.0.0",
+  "description": "A sumple dapp that allows users to uploada piece of content (image, text), add metadata, and register it on-chain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zenitsutrades",
+  "license": "ISC"
+}

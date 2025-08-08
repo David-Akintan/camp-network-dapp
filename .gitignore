@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+# Global ignores
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
