@@ -16,13 +16,20 @@ const IPDashboard = () => {
   const { authenticated } = useAuthState();
 
   const categoryOptions = [
-    "All",
-    "Writing",
-    "Design", 
     "Music",
-    "Video",
-    "Idea",
-    "Photography",
+    "Technology",
+    "Business",
+    "Education",
+    "Sports",
+    "Arts",
+    "Food",
+    "Health",
+    "Comedy",
+    "Networking",
+    "Workshop",
+    "Conference",
+    "Fashion",
+    "Festival",
     "Other",
   ];
 
@@ -102,15 +109,15 @@ const IPDashboard = () => {
     const ext = filename?.split('.').pop()?.toLowerCase();
     switch (ext) {
       case 'pdf': return '📄';
-      case 'doc':
+      case 'doc': return '📝';
       case 'docx': return '📝';
       case 'txt': return '📄';
-      case 'jpg':
-      case 'jpeg':
-      case 'png': return '��️';
-      case 'mp3':
+      case 'jpg': return '🖼️';
+      case 'jpeg': return '🖼️';
+      case 'png': return '🖼️';
+      case 'mp3': return '🎵';
       case 'wav': return '🎵';
-      case 'mp4':
+      case 'mp4': return '🎬';
       case 'avi': return '🎬';
       default: return '📁';
     }

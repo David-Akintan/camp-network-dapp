@@ -186,64 +186,6 @@ const EventCreatorForm = () => {
       setStatus(`Failed to process ${fileType.toLowerCase()}.`);
     }
   };
-
-  // IPFS upload function
-  //   const ipfsUpload = async (file, metadataJson) => {
-  //     try {
-  //       setStatus("Uploading to IPFS via Pinata...");
-
-  //       const metadataBlob = new Blob([JSON.stringify(metadataJson)], {
-  //         type: "application/json",
-  //       });
-
-  //       const fileBlob = new Blob([file], { type: file.type });
-
-  //       const files = metadataJson?.isEventImage
-  //         ? [
-  //             new File([fileBlob], file.name, { type: file.type })
-  //           ]
-  //         : [
-  //             new File([metadataBlob], "metadata.json", { type: "application/json" }),
-  //             new File([fileBlob], file.name, { type: file.type })
-  //           ];
-
-  //       const formData = new FormData();
-  //       Array.from(files).forEach((file) => {
-  //         formData.append("file", file, `files/${file.name}`);
-  //       });
-
-  //       const pinataMetadata = JSON.stringify({
-  //         name: "Event IP & Metadata",
-  //       });
-
-  //       formData.append("pinataMetadata", pinataMetadata);
-
-  //       const response = await fetch(
-  //         "https://api.pinata.cloud/pinning/pinFileToIPFS",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             Authorization: `Bearer ${PINATA_JWT}`,
-  //           },
-  //           body: formData,
-  //         }
-  //       );
-
-  //       const result = await response.json();
-  //       console.log("Pinata Upload Result:", result);
-
-  //       if (result.IpfsHash) {
-  //         setStatus("Upload successful.");
-  //         return result.IpfsHash;
-  //       } else {
-  //         throw new Error("Pinata upload failed");
-  //       }
-  //     } catch (err) {
-  //       setStatus("IPFS Upload failed.");
-  //       console.error("IPFS Error:", err);
-  //       return null;
-  //     }
-  //   };
   // IPFS upload function - Updated for event creation
   const ipfsUpload = async (file, metadataJson) => {
     try {
@@ -393,7 +335,6 @@ const EventCreatorForm = () => {
     setIsLoading(true);
 
     try {
-      // Create a Web3Provider from window.ethereum for getting the signer
       const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       const account = await web3Provider.getSigner().getAddress();
 
@@ -506,7 +447,7 @@ const EventCreatorForm = () => {
         "success",
         "🎉 Event Created Successfully!",
         `Your event "${eventData.title}" has been created and registered as IP on the blockchain.`,
-        `Transaction hash: ${receipt.transactionHash}`
+        `${receipt.transactionHash}`
       );
 
       // Reset form
@@ -804,7 +745,14 @@ const EventCreatorForm = () => {
                 <small>Upload a banner image for your event (max 5MB)</small>
                 {eventData.eventBannerName && (
                   <div className="event-file-preview">
-                    <span>✅ {eventData.eventBannerName}</span>
+                    <span><img
+                      src={URL.createObjectURL(eventData.eventImage)}
+                      alt="Event Preview"
+                      className="event-image-preview"
+                      width="100"
+                    />
+                    <br />
+                    ✅ {eventData.eventImageName}</span>
                   </div>
                 )}
               </div>
