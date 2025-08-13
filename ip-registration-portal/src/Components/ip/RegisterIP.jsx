@@ -150,7 +150,7 @@ const RegisterIP = () => {
       // This is necessary for Pinata to understand the metadata and options
       formData.append("pinataMetadata", pinataMetadata);
 
-      console.log(formData)
+      // console.log(formData)
 
 
       const response = await fetch(
@@ -165,7 +165,7 @@ const RegisterIP = () => {
       );
 
       const result = await response.json();
-      console.log("Pinata Upload Result:", result);
+      // console.log("Pinata Upload Result:", result);
 
       if (result.IpfsHash) {
         setStatus("Upload successful.");

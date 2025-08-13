@@ -43,7 +43,7 @@ const TicketClaimer = () => {
     const initializeContractAndAccount = async () => {
       if (authenticated) {
         try {
-          console.log("Initializing contract and getting account...");
+          // console.log("Initializing contract and getting account...");
 
           // Try to get account from window.ethereum first
           let currentAccount = null;
@@ -70,7 +70,7 @@ const TicketClaimer = () => {
                 signer
               );
 
-              console.log("Contract initialized with window.ethereum");
+              // console.log("Contract initialized with window.ethereum");
             } catch (error) {
               console.error("Error with window.ethereum:", error);
             }
@@ -80,10 +80,10 @@ const TicketClaimer = () => {
           if (contractInstance) {
             setContract(contractInstance);
             setUserAccount(currentAccount);
-            console.log("Final contract and account set:", {
-              contract: !!contractInstance,
-              account: currentAccount,
-            });
+            // console.log("Final contract and account set:", {
+            //   contract: !!contractInstance,
+            //   account: currentAccount,
+            // });
           } else {
             console.error("Failed to initialize contract");
           }
@@ -118,16 +118,16 @@ const TicketClaimer = () => {
     }
   }, [authenticated]);
 
-  useEffect(() => {
-    if (contract && account) {
-      contract.getUserTickets(account).then((ids) => {
-        console.log(
-          "Raw ticket IDs:",
-          ids.map((i) => i.toString())
-        );
-      });
-    }
-  }, [contract, account]);
+  // useEffect(() => {
+  //   if (contract && account) {
+  //     contract.getUserTickets(account).then((ids) => {
+  //       console.log(
+  //         "Raw ticket IDs:",
+  //         ids.map((i) => i.toString())
+  //       );
+  //     });
+  //   }
+  // }, [contract, account]);
 
   useEffect(() => {
     const fetchAllEventMetadata = async () => {
@@ -205,20 +205,20 @@ const TicketClaimer = () => {
   // Fetch available events from blockchain
   const fetchAvailableEvents = async () => {
     if (!contract) {
-      console.log("No contract available for fetching events");
+      // console.log("No contract available for fetching events");
       return;
     }
 
     try {
       setLoadingEvents(true);
-      console.log("Fetching active events...");
+      // console.log("Fetching active events...");
 
       // First, get the total event count
       const eventCount = await contract.getEventCount();
-      console.log("Total events:", eventCount.toString());
+      // console.log("Total events:", eventCount.toString());
 
       if (eventCount.toString() === "0") {
-        console.log("No events found");
+        // console.log("No events found");
         setAvailableEvents([]);
         setLoadingEvents(false);
         return;
@@ -239,21 +239,21 @@ const TicketClaimer = () => {
           const metadataResponse = await fetch(
             `https://gateway.pinata.cloud/ipfs/${ipfsHash}/metadata.json`
           );
-          console.log(`Fetching metadata for event ${i} from IPFS:`, ipfsHash);
+          // console.log(`Fetching metadata for event ${i} from IPFS:`, ipfsHash);
           const metadata = await metadataResponse.json();
-          console.log(`Fetched metadata for event ${i}:`, metadata);
+          // console.log(`Fetched metadata for event ${i}:`, metadata);
           const eventImageHash = metadata.eventImageHash;
           const eventImageName = metadata.eventImageName;
           const eventImageUrl = `https://gateway.pinata.cloud/ipfs/${eventImageHash}/${eventImageName}`;
 
-          console.log(`Event ${i}:`, {
-            title: event.title,
-            isActive: event.isActive,
-            eventDate: event.eventDate.toString(),
-            currentTime: now,
-            isFuture: event.eventDate.gt(now),
-            ipfsHash: event.ipfsHash,
-          });
+          // console.log(`Event ${i}:`, {
+          //   title: event.title,
+          //   isActive: event.isActive,
+          //   eventDate: event.eventDate.toString(),
+          //   currentTime: now,
+          //   isFuture: event.eventDate.gt(now),
+          //   ipfsHash: event.ipfsHash,
+          // });
 
           // Check if event is active and in the future
           if (event.isActive && event.eventDate.gt(now)) {
@@ -268,7 +268,7 @@ const TicketClaimer = () => {
         }
       }
 
-      console.log("Active events found:", activeEvents.length);
+      // console.log("Active events found:", activeEvents.length);
 
       const eventsWithDetails = await Promise.all(
         activeEvents.map(async (event) => {
@@ -276,17 +276,17 @@ const TicketClaimer = () => {
           let hasTicket = false;
           if (userAccount) {
             try {
-              console.log(
-                "Checking ticket for:",
-                userAccount,
-                "Event ID:",
-                event.id
-              );
+              // console.log(
+              //   "Checking ticket for:",
+              //   userAccount,
+              //   "Event ID:",
+              //   event.id
+              // );
               hasTicket = await contract.hasTicketForEvent(
                 userAccount,
                 event.id
               );
-              console.log("hasTicket result:", hasTicket);
+              // console.log("hasTicket result:", hasTicket);
             } catch (error) {
               console.error("Error checking ticket ownership:", error);
             }
@@ -314,7 +314,7 @@ const TicketClaimer = () => {
         })
       );
 
-      console.log("Processed events:", eventsWithDetails);
+      // console.log("Processed events:", eventsWithDetails);
       setAvailableEvents(eventsWithDetails);
     } catch (error) {
       console.error("Error fetching events:", error);
@@ -330,13 +330,13 @@ const TicketClaimer = () => {
 
     try {
       setLoadingTickets(true);
-      console.log("Fetching tickets for account:", userAccount);
+      // console.log("Fetching tickets for account:", userAccount);
 
       const ticketIds = await contract.getUserTickets(userAccount);
-      console.log("Ticket IDs:", ticketIds);
+      // console.log("Ticket IDs:", ticketIds);
 
       if (!ticketIds || ticketIds.length === 0) {
-        console.log("No tickets found for user");
+        // console.log("No tickets found for user");
         setUserTickets([]); // Ensure we clear old state
         return;
       }
@@ -378,7 +378,7 @@ const TicketClaimer = () => {
       );
 
       const filteredTickets = ticketsWithDetails.filter((t) => t !== null);
-      console.log("Fetched tickets:", filteredTickets.length);
+      // console.log("Fetched tickets:", filteredTickets.length);
       setUserTickets(filteredTickets);
     } catch (error) {
       console.error("Error fetching user tickets:", error);
