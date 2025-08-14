@@ -31,7 +31,7 @@ function App() {
         <div className="header-container">
           <div className="header-left">
             <div className="logo">
-              <h1>🏕️ Dayve Camp Project</h1>
+              <h1>🏕️ BlockTicket</h1>
             </div>
           </div>
           
@@ -75,7 +75,7 @@ function App() {
         {currentPage === "register" ? (
           <>
             <h2 style={{ marginBottom: "2rem" }}>
-              Camp Network IP Registration Portal
+              BlockTicket
             </h2>
             <RegisterIP />
           </>

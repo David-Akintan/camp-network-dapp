@@ -28,7 +28,7 @@ const apollo = new ApolloClient({
 
 // Wagmi + RainbowKit Config
 const config = getDefaultConfig({
-  appName: "Camp Ticketing DApp",
+  appName: "BlockTicket",
   projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID, // You MUST set this
   chains: [mainnet, polygon, optimism, arbitrum, basecampTestnet],
   transports: {

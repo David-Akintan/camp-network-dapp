@@ -1,7 +1,7 @@
 {
-  "name": "ip-registration-portal",
+  "name": "BlockTicket",
   "version": "1.0.0",
-  "description": "A sumple dapp that allows users to uploada piece of content (image, text), add metadata, and register it on-chain",
+  "description": "A decentralized platform for intellectual property registration and event ticketing, all with on-chain provenance",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
